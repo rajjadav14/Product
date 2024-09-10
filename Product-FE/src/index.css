@@ -1,0 +1,76 @@
+.header {
+  text-align: center;
+  color: white;
+  font-size: x-large;
+}
+
+.addBtn {
+  width: fit-content;
+  margin: 20px 0 5px 0;
+  margin-left: auto;
+}
+/* src/ProductPage.css */
+.customTable .ant-table {
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.customTable .ant-table-thead > tr > th {
+  background-color: #001529;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  padding: 16px;
+  font-size: 16px;
+}
+
+.customTable .ant-table-tbody > tr > td {
+  text-align: center;
+  padding: 12px;
+  font-size: 14px;
+  border-bottom: 1px solid #ddd;
+}
+
+.customTable .ant-table-row:hover {
+  background-color: #f5f5f5;
+}
+
+.customTable .ant-table-tbody > tr.ant-table-row-selected > td {
+  background-color: #e6f7ff !important;
+}
+
+/* Add spacing around the table */
+.customTable {
+  margin: 20px auto;
+  max-width: 80%;
+}
+
+/* Add pagination styling */
+.customTable .ant-pagination {
+  margin: 16px 0;
+  text-align: center;
+}
+
+.customTable .ant-pagination-item-active a {
+  color: #1890ff;
+  font-weight: bold;
+}
+
+/* Header and layout customization */
+.ant-layout-header {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #001529;
+}
+
+.ant-layout-content {
+  padding: 24px;
+}
+
+.actions {
+  display: flex;
+}
