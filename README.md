@@ -25,5 +25,6 @@ I am not pushing the .env in git hub so sending in mail.
 Looking at the time limit some things can be found improvable.
 Design is done looking at the time limit.
 I am also attaching video of the application in mail.
+contact me at rajjadav14@gmail.com if any problem
 
 Hope that helps !
