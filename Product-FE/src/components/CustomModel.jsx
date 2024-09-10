@@ -1,18 +1,22 @@
-import { Form, Input, Modal } from "antd";
+import { Descriptions, Form, Input, Modal } from "antd";
 import TextArea from "antd/es/input/TextArea";
 
 const CustomModel = ({ show, type, onOk, onCancel, product, form }) => {
   // Handle form submission
   const handleOk = () => {
-    form
-      .validateFields()
-      .then((values) => {
-        // Call the onOk function with the form values
-        onOk(values);
-      })
-      .catch((errorInfo) => {
-        console.error("Validation Failed:", errorInfo);
-      });
+    if (type == "v") {
+      onOk();
+    } else {
+      form
+        .validateFields()
+        .then((values) => {
+          // Call the onOk function with the form values
+          onOk(values);
+        })
+        .catch((errorInfo) => {
+          console.log("Validation Failed:", errorInfo);
+        });
+    }
   };
   const map = {
     a: "Add Product",
@@ -26,7 +30,10 @@ const CustomModel = ({ show, type, onOk, onCancel, product, form }) => {
         form={form}
         layout="vertical"
         initialValues={{
-          title: product?.title,
+          name: product?.name,
+          description: product?.description,
+          price: product?.price,
+          id: product?._id,
         }}
       >
         <div>

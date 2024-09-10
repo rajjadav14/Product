@@ -15,6 +15,7 @@ import {
   addProduct,
   deleteProduct,
   fetchProducts,
+  updateProduct,
   updateProductSwitch,
 } from "../redux/actions/productActions";
 import CustomModel from "./CustomModel";
@@ -26,7 +27,6 @@ const { Content } = Layout;
 const ProductTable = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  //const [notificationAPI, contextHolder] = notification.useNotification();
 
   const { products, status, message } = useSelector((state) => state.products);
   const [isViewVisible, setIsViewVisible] = useState(false);
@@ -44,11 +44,9 @@ const ProductTable = () => {
       notification.success({ message });
     }
     if (status == "failed") {
-      console.log("in msg", message);
       notification.error({ message });
     }
   }, [status, message]);
-  console.log({ status, message });
 
   const showEditModal = (record) => {
     setSelectedProduct(record);
@@ -76,25 +74,30 @@ const ProductTable = () => {
   const handleSwitchToggle = async (value, key, id) => {
     try {
       const keyMapper = {
-        b: "isBestseller",
+        b: "isBestSeller",
         r: "isRecommended",
         s: "status",
       };
-      await dispatch(updateProductSwitch(value, keyMapper[key], id)).unwrap();
+      await dispatch(
+        updateProductSwitch({ value, field: keyMapper[key], id })
+      ).unwrap();
       dispatch(fetchProducts());
     } catch (error) {
-      console.log(err);
+      console.log(error);
     }
   };
 
-  const handleEditForm = async (values, id) => {
+  const handleEditForm = async (values) => {
     try {
-      await dispatch(updateProduct(values, id)).unwrap(); // Ensure Edit was successful
+      await dispatch(
+        updateProduct({ ...values, id: selectedProduct._id })
+      ).unwrap(); // Ensure Edit was successful
       dispatch(fetchProducts());
     } catch (error) {
-      console.log(err);
+      console.log(error);
     }
-    setIsViewVisible(false);
+    setSelectedProduct(null);
+    setIsEditVisible(false);
   };
 
   const handleAddForm = async (values) => {
@@ -102,9 +105,9 @@ const ProductTable = () => {
       await dispatch(addProduct(values)).unwrap(); // Ensure Add was successful
       dispatch(fetchProducts());
     } catch (error) {
-      console.log(err);
+      console.log(error);
     }
-
+    setSelectedProduct(null);
     setIsAddVisible(false);
   };
 
@@ -113,7 +116,7 @@ const ProductTable = () => {
       await dispatch(deleteProduct(id)).unwrap(); // Ensure delete was successful
       dispatch(fetchProducts());
     } catch (error) {
-      console.log(err);
+      console.log(error);
     }
     setIsDeleteVisible(false);
   };
@@ -123,6 +126,7 @@ const ProductTable = () => {
     setIsViewVisible(false);
     setIsDeleteVisible(false);
     setIsAddVisible(false);
+    setSelectedProduct(null);
   };
 
   // Columns for Product Table
@@ -154,11 +158,11 @@ const ProductTable = () => {
       ),
     },
     {
-      title: "IsBestseller",
-      key: "isBestseller",
+      title: "IsBestSeller",
+      key: "isBestSeller",
       render: (_, record) => (
         <Switch
-          checked={record?.isBestseller}
+          checked={record?.isBestSeller}
           onChange={(checked) => handleSwitchToggle(checked, "b", record._id)}
         />
       ),
@@ -220,7 +224,6 @@ const ProductTable = () => {
           onOk={handleViewOk}
           onCancel={handleCancel}
           product={selectedProduct}
-          form={form}
         />
         <CustomModel
           show={isEditVisible}
@@ -248,4 +251,4 @@ const ProductTable = () => {
   );
 };
 
-export default ProductTable;
+export default React.memo(ProductTable);

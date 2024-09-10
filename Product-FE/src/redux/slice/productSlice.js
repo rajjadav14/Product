@@ -24,20 +24,19 @@ const productSlice = createSlice({
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.products = action.payload;
-        state.message = action.message;
+        state.products = action.payload?.data || [];
+        state.message = action.payload.message;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = "failed";
-        state.message = action.message;
+        state.message = action.payload.message;
       })
       .addCase(updateProductSwitch.pending, (state) => {
         state.status = "loading";
       })
       .addCase(updateProductSwitch.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.products = action.payload;
-        state.message = action.message;
+        state.message = action.payload.message;
       })
       .addCase(updateProductSwitch.rejected, (state, action) => {
         state.status = "failed";
@@ -48,36 +47,34 @@ const productSlice = createSlice({
       })
       .addCase(updateProduct.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.products = action.payload;
-        state.message = action.message;
+        state.products = action.payload.data;
+        state.message = action.payload.message;
       })
       .addCase(updateProduct.rejected, (state, action) => {
         state.status = "failed";
-        state.message = action.message;
+        state.message = action.payload.message;
       })
       .addCase(addProduct.pending, (state) => {
         state.status = "loading";
       })
       .addCase(addProduct.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.products = action.payload;
-        state.message = action.message;
+        state.message = action.payload.message;
       })
       .addCase(addProduct.rejected, (state, action) => {
         state.status = "failed";
-        state.message = action.message;
+        state.message = action.payload.message;
       })
       .addCase(deleteProduct.pending, (state) => {
         state.status = "loading";
       })
       .addCase(deleteProduct.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.products = action.payload;
-        state.message = action.message;
+        state.message = action.payload.message;
       })
       .addCase(deleteProduct.rejected, (state, action) => {
         state.status = "failed";
-        state.message = action.payload;
+        state.message = action.payload.message;
       });
   },
 });
